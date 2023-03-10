@@ -25,7 +25,7 @@ class TheCluelessAfrican:
           
        x = self.position[0] 
        y = self.position[1] 
-       print(self.Down) 
+       
        if x > 0 and self.AllLeft == 0: #We always start moving left
        
         
@@ -67,7 +67,7 @@ class TheCluelessAfrican:
           return Move.RIGHT  
        
        if x == (grid.shape[0]-1) and y == (grid.shape[1]-1): #Now we at the bottom left we have to reverse the directions
-          print('Im here')
+         
           self.AllLeft = 0
           self.Down = 0
           self.AllRight = 1
@@ -83,6 +83,7 @@ class TheCluelessAfrican:
        return Move.DOWN
        
        
+              
        
        
        
@@ -95,26 +96,4 @@ class TheCluelessAfrican:
        
        
        
-       
-       
-       
-        # Chooses a random target location, and moves there.
-        # Once it's there, choose a new location.
-        
-        # Create a target in storage if doesn't exist
-        #if  self.target is None:
-        #    self.target = np.zeros_like(self.position)
-
-        # If reached the target find a new target
-        #if np.array_equal(self.position, self.target):
-        #    self.target[0] = random.randint(0, grid.shape[0] - 1)
-        #    self.target[1] = random.randint(0, grid.shape[1] - 1)
-        
-        # Move in direction of target
-        #if self.target[0] > self.position[0]:
-        #    return Move.RIGHT
-        #elif self.target[0] < self.position[0]:
-        #    return Move.LEFT
-        #elif self.target[1] > self.position[1]:
-        #    return Move.UP
-        #else:  
+     
