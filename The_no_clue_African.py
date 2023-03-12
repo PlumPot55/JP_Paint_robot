@@ -18,65 +18,113 @@ class TheCluelessAfrican:
     def get_contributor(self):
         return "JP Potgieter"
     
+    def should_I_Move(self, id, tile):
+        if tile == 0: return True
+        return (id - tile) % 3 == 2 or (id - tile) % 3 == 1 or self.id == tile
+    
     def determine_next_move(self, grid, enemies, game_info):
        
        #Will try just do a snake movement, cover all the blocks YOLO.
        
-          
+       
        x = self.position[0] 
        y = self.position[1] 
-       
+      
        if x > 0 and self.AllLeft == 0: #We always start moving left
-       
+           
+         
+         if self.should_I_Move(self.id,grid[y][x-1]) == False and self.Down == 1:
+           if y == grid.shape[0]-1:
+              self.Down = 0
+              return Move.DOWN
+            
+           return Move.UP
+                  
+         
+         if self.should_I_Move(self.id,grid[y][x-1]) == False and self.Down == 0:
+            if y == 0:
+              self.Down = 1
+              return Move.UP
+            
+            return Move.DOWN
+         
+         if self.should_I_Move(self.id,grid[y][x-1]) == False and self.Down == 0:
+            return Move.DOWN
         
+
          return Move.LEFT
        
-       if x == 0 and y > 0 and self.AllLeft == 0 and self.Down == 0: #When we get left but not 0 on Y axis we go one down
+       
+       if x == 0 and y > 0 and self.AllLeft == 0 and self.Down == 0: 
          self.AllLeft = 1
          self.AllRight = 0
+        
+                 
          return Move.DOWN
        
-       if x == 0 and y > 0 and self.AllLeft == 0 and self.Down == 1: #When we get left but not 0 on Y axis we go one down
+       if x == 0 and y > 0 and self.AllLeft == 0 and self.Down == 1: 
+         
+         
          self.AllLeft = 1
          self.AllRight = 0
+        
+         
          return Move.UP
        
-       if self.AllLeft == 1 and x < (grid.shape[0]-1): #We start moving right untill the end
+       if self.AllLeft == 1 and x < (grid.shape[1]-1): 
           
-          return Move.RIGHT
+         if self.should_I_Move(self.id,grid[y][x+1]) == False and self.Down == 1:
+            if y == grid.shape[0]-1:
+              self.Down = 0
+              return Move.DOWN
+         
+            return Move.UP
+         
+         
+         
+         if self.should_I_Move(self.id,grid[y][x+1]) == False and self.Down == 0:
+            if y == 0:
+              self.Down = 1
+              return Move.UP
+            
+            
+            return Move.DOWN
+          
+          
+         return Move.RIGHT
        
-       if x == (grid.shape[0]-1) and self.Down == 0 : #Then we go down by one and then we go left again
+       if x == (grid.shape[1]-1) and self.Down == 0 : 
           self.AllRight = 1
           self.AllLeft = 0
           
           return Move.DOWN
        
-       if x == (grid.shape[0]-1) and y < (grid.shape[1]-1) and  self.Down == 1 : #Then we go down by one and then we go left again
+       if x == (grid.shape[1]-1) and y < (grid.shape[0]-1) and  self.Down == 1 : 
           self.AllRight = 1
           self.AllLeft = 0
           
           return Move.UP
       
        
-       if x == 0 and y == 0: #Now we at the bottom left we have to reverse the directions
+       if y == 0: 
           
           self.AllLeft = 1
           self.Down = 1
           self.AllRight = 0
           
-          return Move.RIGHT  
+          return Move.UP  
        
-       if x == (grid.shape[0]-1) and y == (grid.shape[1]-1): #Now we at the bottom left we have to reverse the directions
+       if  y == (grid.shape[1]-1): 
          
           self.AllLeft = 0
           self.Down = 0
           self.AllRight = 1
           
-          return Move.LEFT
+          return Move.DOWN
        
-       if self.AllRight == 1:
+      # if self.AllRight == 1:
 
-          return Move.LEFT
+      #    return Move.LEFT
 
         
        
