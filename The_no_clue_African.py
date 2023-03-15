@@ -20,7 +20,7 @@ class TheCluelessAfrican:
     
     def should_I_Move(self, id, tile):
         if tile == 0: return True
-        return (id - tile) % 3 == 2 or (id - tile) % 3 == 1 or self.id == tile
+        return (id - tile) % 3 == 2  or self.id == tile
     
     def determine_next_move(self, grid, enemies, game_info):
        
@@ -34,6 +34,8 @@ class TheCluelessAfrican:
            
          
          if self.should_I_Move(self.id,grid[y][x-1]) == False and self.Down == 1:
+           self.AllRight = 0
+           self.AllLeft = 1
            if y == grid.shape[0]-1:
               self.Down = 0
               return Move.DOWN
@@ -42,6 +44,8 @@ class TheCluelessAfrican:
                   
          
          if self.should_I_Move(self.id,grid[y][x-1]) == False and self.Down == 0:
+            self.AllRight = 0
+            self.AllLeft = 1
             if y == 0:
               self.Down = 1
               return Move.UP
@@ -83,6 +87,9 @@ class TheCluelessAfrican:
          
          
          if self.should_I_Move(self.id,grid[y][x+1]) == False and self.Down == 0:
+            self.AllRight = 0
+            self.AllLeft = 1
+            
             if y == 0:
               self.Down = 1
               return Move.UP
